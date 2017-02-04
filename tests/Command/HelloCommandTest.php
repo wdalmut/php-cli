@@ -2,17 +2,13 @@
 namespace Command;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class HelloCommandTest extends TestCase
 {
     public function testHello()
     {
-        $application = new Application();
-        $application->add(new HelloCommand());
-
-        $command = $application->find('app:hello');
+        $command = new HelloCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
 
