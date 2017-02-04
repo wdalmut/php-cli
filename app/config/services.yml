@@ -1,0 +1,30 @@
+services:
+  logger:
+    class: Monolog\Logger
+    arguments:
+      - "default"
+    calls:
+      - ["pushHandler", ["@logger.handler"]]
+  logger.handler:
+    class: Monolog\Handler\StreamHandler
+    arguments:
+      - "var/logs/prod.log"
+      - 100
+
+  event.dispatcher:
+    class: Symfony\Component\EventDispatcher\EventDispatcher
+
+  serializer:
+    class: Symfony\Component\Serializer\Serializer
+    arguments:
+      - ["@serializer.normalizer"]
+      - ["@serializer.encoder"]
+  serializer.encoder:
+    class: Symfony\Component\Serializer\Encoder\JsonEncoder
+  serializer.normalizer:
+    class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
+
+  console:
+    class: Symfony\Component\Console\Application
+    calls:
+      - ["setName", ["%app_name%"]]

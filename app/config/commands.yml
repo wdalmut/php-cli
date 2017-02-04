@@ -1,0 +1,5 @@
+services:
+  hello.command:
+    class: Command\HelloCommand
+    tags:
+      - {name: app.command}
