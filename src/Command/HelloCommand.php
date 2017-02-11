@@ -7,6 +7,15 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class HelloCommand extends Command
 {
+    private $name;
+
+    public function __construct($name = false)
+    {
+        $this->name = $name;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this->setName("app:hello")
@@ -16,6 +25,6 @@ class HelloCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Hello!");
+        $output->writeln(sprintf("Hello %s!", $this->name));
     }
 }
